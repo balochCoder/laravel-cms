@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Post\StorePostRequest;
+use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -58,7 +60,8 @@ class PostController extends Controller
                 'title' => $request->input('title'),
                 'description' => $request->input('description'),
                 'content' => $request->input('content'),
-                'image' => $fileNameToStore
+                'image' => $fileNameToStore,
+                'published_at' => $request->published_at
             ]
         );
 
@@ -95,9 +98,36 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Post $post,UpdatePostRequest $request)
     {
-        //
+        $post->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'content' => $request->input('content'),
+            'published_at' => $request->published_at
+        ]);
+
+        if ($request->hasFile('image')) {
+            // get file name with extension
+            $fileNameWithExt = $request->file('image')->getClientOriginalName();
+            // get file name
+            $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            //get just file extension
+            $extension = $request->file('image')->getClientOriginalExtension();
+            // file name to store
+            $fileNameToStore = $fileName . '_' . time() . '.' . $extension;
+            //upload image
+            $request->image->storeAs('public\post_images', $fileNameToStore);
+
+            if ($post->image != "noimage.png") {
+                Storage::delete('public/post_images/' . $post->image);
+            }
+            $post->update([
+                'image' => $fileNameToStore
+            ]);
+        }
+        Session::flash('success', 'Post updated successfully');
+        return redirect(route('post.index'));
     }
 
     /**
@@ -108,6 +138,22 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+        if ($post->trashed()) {
+            if ($post->image != "noimage.png") {
+                Storage::delete('public/post_images/' . $post->image);
+            }
+            $post->forceDelete();
+        } else {
+            $post->delete();
+        }
+        Session::flash('success', 'Post deleted successfully');
+        return redirect()->back();
+    }
+
+    public function trashed()
+    {
+        $trashed = Post::onlyTrashed()->latest()->paginate(10);
+        return view('post.index')->with('posts', $trashed);
     }
 }

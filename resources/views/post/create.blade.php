@@ -36,15 +36,19 @@
                     </div>
                     <div class="form-group">
                         <label for="content">Content</label>
-                        <textarea name="content" cols="5" rows="5"
+                        <input id="content" type="hidden" name="content"
+                            value="{{ isset($post) ? $post->content : old('content') }}">
+                        <trix-editor input="content"></trix-editor>
+                        {{-- <textarea name="content" cols="5" rows="5"
                             class="form-control @error('content') is-invalid @enderror"
-                            id="content">{{ isset($post) ? $post->content : old('content') }}</textarea>
-                        @error('content')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
+                            id="content"></textarea> --}}
+
                     </div>
+                    @error('content')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     <div class="form-group ">
                         <label for="published_at">Published At</label>
                         <input type="text" class="form-control @error('published_at') is-invalid @enderror"
@@ -56,6 +60,11 @@
                             </div>
                         @enderror
                     </div>
+                    @isset($post)
+                        <div class="form-group">
+                            <img src="{{ asset('storage/post_images/' . $post->image) }}" alt="" style="width: 100%">
+                        </div>
+                    @endisset
                     <div class="form-group">
                         <label for="image">Image</label>
                         <input type="file" class="form-control-file" id="image" name="image">
@@ -71,11 +80,22 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script>
         $(document).ready(function() {
             $(document).on('submit', 'form', function() {
                 $('button').attr('disabled', 'disabled');
             });
+            flatpickr("#published_at", {
+                enableTime: true
+            });
         });
     </script>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endsection

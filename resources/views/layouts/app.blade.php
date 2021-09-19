@@ -19,6 +19,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('css')
 </head>
 
 <body>
@@ -92,6 +93,13 @@
                                 <li class="list-group-item">
                                     <a href="{{ route('category.index') }}">Categories</a>
                                 </li>
+                            </ul>
+
+                            <ul class="list-group mt-5">
+                                <li class="list-group-item">
+                                    <a href="{{ route('trashed') }}">Trash</a>
+                                </li>
+                               
                             </ul>
                         </div>
                         <div class="col-md-9">
