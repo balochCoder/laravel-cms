@@ -4,11 +4,7 @@
     <div class="d-flex justify-content-end mb-2">
         <a href="{{ route('post.create') }}" class="btn btn-success btn-sm">Add Post</a>
     </div>
-    @if (Session::has('success'))
-        <div class="alert alert-success" role="alert">
-            {{ Session::get('success') }}
-        </div>
-    @endif
+ 
     <div class="card card-default">
         <div class="card-header">Posts</div>
         <div class="card-body">

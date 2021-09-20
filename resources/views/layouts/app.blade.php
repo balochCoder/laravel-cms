@@ -65,7 +65,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
+                                                                         document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -84,6 +84,17 @@
         <main class="py-4">
             @auth
                 <div class="container">
+                    @if (Session::has('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
+
+                    @if (Session::has('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ Session::get('error') }}
+                    </div>
+                @endif
                     <div class="row">
                         <div class="col-md-3">
                             <ul class="list-group">
@@ -99,7 +110,7 @@
                                 <li class="list-group-item">
                                     <a href="{{ route('trashed') }}">Trash</a>
                                 </li>
-                               
+
                             </ul>
                         </div>
                         <div class="col-md-9">

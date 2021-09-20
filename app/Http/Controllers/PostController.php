@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('verifyCategoriesCount')->only(['create', 'store']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +36,7 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('post.create')->with('categories',$categories);
+        return view('post.create')->with('categories', $categories);
     }
 
     /**
@@ -63,7 +68,7 @@ class PostController extends Controller
                 'description' => $request->input('description'),
                 'content' => $request->input('content'),
                 'image' => $fileNameToStore,
-                'category_id'=>$request->input('category_id'),
+                'category_id' => $request->input('category_id'),
                 'published_at' => $request->published_at
             ]
         );
@@ -92,7 +97,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('post.create')->with('post', $post)->with('categories',$categories);
+        return view('post.create')->with('post', $post)->with('categories', $categories);
     }
 
     /**
@@ -102,13 +107,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Post $post,UpdatePostRequest $request)
+    public function update(Post $post, UpdatePostRequest $request)
     {
         $post->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'content' => $request->input('content'),
-            'category_id'=>$request->input('category_id'),
+            'category_id' => $request->input('category_id'),
             'published_at' => $request->input('published_at')
         ]);
 
