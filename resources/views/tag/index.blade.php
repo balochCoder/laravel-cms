@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="d-flex justify-content-end mb-2">
-        <a href="{{ route('category.create') }}" class="btn btn-success btn-sm">Add Category</a>
+        <a href="{{ route('tag.create') }}" class="btn btn-success btn-sm">Add Tag</a>
     </div>
 
     <div class="card card-default">
-        <div class="card-header">Categories</div>
+        <div class="card-header">Tags</div>
         <div class="card-body">
-            @if ($categories->count() > 0)
+            @if ($tags->count() > 0)
                 <table class="table">
                     <thead>
                         <th>Name</th>
@@ -16,18 +16,18 @@
                         <th>Actions</th>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($tags as $tag)
                             <tr>
-                                <td>{{ $category->name }}</td>
-                                <td>{{ $category->posts->count() }}</td>
+                                <td>{{ $tag->name }}</td>
+                                <td>{{ $tag->posts->count() }}</td>
                                 <td>
 
-                                    <a href="{{ route('category.edit', $category->id) }}"
+                                    <a href="{{ route('tag.edit', $tag->id) }}"
                                         class="btn btn-primary btn-sm  mr-2">Edit</a>
-                                    @if ($category->posts->count() === 0)
+                                    @if ($tag->posts->count() === 0)
                                         <button type="button" data-toggle="modal" data-target="#deleteModal"
                                             class="btn btn-danger btn-sm "
-                                            onclick="handledelete({{ $category->id }})">Delete</button>
+                                            onclick="handledelete({{ $tag->id }})">Delete</button>
                                     @endif
 
                                 </td>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                                <form action="" method="POST" id="deleteCategoryForm">
+                                <form action="" method="POST" id="deleteTagForm">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Yes</button>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
             @else
-                <h3 class="text-center">No Category Yet</h3>
+                <h3 class="text-center">No Tag Yet</h3>
             @endif
 
         </div>
@@ -79,8 +79,8 @@
         });
 
         function handledelete(id) {
-            var form = document.getElementById('deleteCategoryForm')
-            let url = "{{ route('category.destroy', ':id') }}"
+            var form = document.getElementById('deleteTagForm')
+            let url = "{{ route('tag.destroy', ':id') }}"
             url = url.replace(':id', id);
             form.action = url
         }

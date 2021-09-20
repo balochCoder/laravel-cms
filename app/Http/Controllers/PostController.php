@@ -6,6 +6,7 @@ use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -36,7 +37,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('post.create')->with('categories', $categories);
+        $tags = Tag::all();
+        return view('post.create')->with('categories', $categories)->with('tags', $tags);
     }
 
     /**
@@ -61,7 +63,7 @@ class PostController extends Controller
         } else {
             $fileNameToStore = 'noimage.png';
         }
-        Post::create(
+        $post = Post::create(
             [
 
                 'title' => $request->input('title'),
@@ -72,7 +74,9 @@ class PostController extends Controller
                 'published_at' => $request->published_at
             ]
         );
-
+        if ($request->tags) {
+            $post->tags()->attach($request->tags);
+        }
         Session::flash('success', 'Post created successfully');
         return redirect(route('post.index'));
     }
@@ -97,7 +101,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
-        return view('post.create')->with('post', $post)->with('categories', $categories);
+        $tags = Tag::all();
+        return view('post.create')->with('post', $post)->with('categories', $categories)->with('tags', $tags);
     }
 
     /**
@@ -109,6 +114,9 @@ class PostController extends Controller
      */
     public function update(Post $post, UpdatePostRequest $request)
     {
+        if ($request->tags) {
+            $post->tags()->sync($request->tags);
+        }
         $post->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
