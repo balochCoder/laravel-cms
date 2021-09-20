@@ -28,3 +28,4 @@ Route::resource('category',CategoryController::class);
 Route::resource('post',PostController::class);
 
 Route::get('trash',[PostController::class,'trashed'])->name('trashed');
+Route::put('restore/{post}',[PostController::class,'restore'])->name('restore');

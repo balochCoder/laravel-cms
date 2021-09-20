@@ -42,13 +42,33 @@
                         {{-- <textarea name="content" cols="5" rows="5"
                             class="form-control @error('content') is-invalid @enderror"
                             id="content"></textarea> --}}
-
+                        @error('content')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
                     </div>
-                    @error('content')
+
+
+                    <div class="form-group">
+                        <label for="category_id">State</label>
+                        <select id="category_id" class="form-control @error('category_id') is-invalid @enderror" name="category_id">
+                            @empty($post)
+                                <option selected disabled value="">Select Category</option>
+                            @endempty
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}" @isset($post)
+                                    {{ $category->id == $post->category_id ? 'selected' : '' }} @endisset>
+                                    {{ $category->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('category_id')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
                     @enderror
+                    </div>
                     <div class="form-group ">
                         <label for="published_at">Published At</label>
                         <input type="text" class="form-control @error('published_at') is-invalid @enderror"

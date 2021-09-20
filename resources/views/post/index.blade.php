@@ -13,11 +13,15 @@
         <div class="card-header">Posts</div>
         <div class="card-body">
             @if ($posts->count() > 0)
-                <table class="table">
+                <table class="table table-striped">
                     <thead>
-                        <th>Images</th>
-                        <th>Title</th>
-                        <th>Actions</th>
+                        <tr>
+                            <th scope="col">Images</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Category</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
                     </thead>
                     <tbody>
                         @foreach ($posts as $post)
@@ -27,12 +31,20 @@
                                         height="50px">
                                 </td>
                                 <td>{{ $post->title }}</td>
+                                <td>{{ $post->category->name }}</td>
                                 <td>
-
                                     @if (!$post->trashed())
                                         <a href="{{ route('post.edit', $post->id) }}"
-                                            class="btn btn-primary btn-sm  mr-2">Edit</a>
+                                            class="btn btn-primary btn-sm">Edit</a>
+                                    @else
+                                        <form action="{{ route('restore', $post->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="btn btn-primary btn-sm">Restore</button>
+                                        </form>
                                     @endif
+                                </td>
+                                <td>
                                     <button type="button" data-toggle="modal" data-target="#deleteModal"
                                         class="btn btn-danger btn-sm "
                                         onclick="handledelete({{ $post->id }})">{{ $post->trashed() ? 'Delete' : 'Trash' }}</button>

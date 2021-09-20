@@ -27,7 +27,8 @@ class UpdatePostRequest extends FormRequest
             'title' => 'required|unique:posts,title,' . $this->post->id,
             'description' => 'required',
             'content' => 'required',
-            'image' => 'image|mimes:jpeg,jpg,png,gif|nullable|max:1999'
+            'image' => 'image|mimes:jpeg,jpg,png,gif|nullable|max:1999',
+            'category_id'=>'required'
         ];
     }
 }

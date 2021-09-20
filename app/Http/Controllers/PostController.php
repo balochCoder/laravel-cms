@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostRequest;
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -29,7 +30,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create');
+        $categories = Category::all();
+        return view('post.create')->with('categories',$categories);
     }
 
     /**
@@ -61,6 +63,7 @@ class PostController extends Controller
                 'description' => $request->input('description'),
                 'content' => $request->input('content'),
                 'image' => $fileNameToStore,
+                'category_id'=>$request->input('category_id'),
                 'published_at' => $request->published_at
             ]
         );
@@ -88,7 +91,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('post.create')->with('post', $post);
+        $categories = Category::all();
+        return view('post.create')->with('post', $post)->with('categories',$categories);
     }
 
     /**
@@ -104,7 +108,8 @@ class PostController extends Controller
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'content' => $request->input('content'),
-            'published_at' => $request->published_at
+            'category_id'=>$request->input('category_id'),
+            'published_at' => $request->input('published_at')
         ]);
 
         if ($request->hasFile('image')) {
@@ -155,5 +160,14 @@ class PostController extends Controller
     {
         $trashed = Post::onlyTrashed()->latest()->paginate(10);
         return view('post.index')->with('posts', $trashed);
+    }
+
+    public function restore($id)
+    {
+        $post = Post::withTrashed()->where('id', $id)->firstOrFail();
+        $post->restore();
+
+        Session::flash('success', 'Post restored successfully');
+        return redirect()->back();
     }
 }

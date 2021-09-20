@@ -26,7 +26,8 @@ class PostFactory extends Factory
             'description' => $this->faker->sentence(4),
             'content' => $this->faker->paragraph(7),
             'image' => 'noimage.png',
-            'published_at' => now()
+            'published_at' => now(),
+            'category_id'=>1
 
         ];
     }
