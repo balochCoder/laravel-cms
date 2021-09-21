@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-  
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -64,8 +64,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                         document.getElementById('logout-form').submit();">
+                                    <a class="dropdown-item" href="{{ route('users.profile') }}">
+                                        My profile
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
@@ -91,13 +95,19 @@
                     @endif
 
                     @if (Session::has('error'))
-                    <div class="alert alert-danger" role="alert">
-                        {{ Session::get('error') }}
-                    </div>
-                @endif
+                        <div class="alert alert-danger" role="alert">
+                            {{ Session::get('error') }}
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-3">
                             <ul class="list-group">
+
+                                @if (Auth::user()->isAdmin())
+                                    <li class="list-group-item">
+                                        <a href="{{ route('users') }}">Users</a>
+                                    </li>
+                                @endif
                                 <li class="list-group-item">
                                     <a href="{{ route('post.index') }}">Posts</a>
                                 </li>
@@ -129,7 +139,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')
 </body>
 
