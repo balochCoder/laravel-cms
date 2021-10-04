@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -71,7 +72,8 @@ class PostController extends Controller
                 'content' => $request->input('content'),
                 'image' => $fileNameToStore,
                 'category_id' => $request->input('category_id'),
-                'published_at' => $request->published_at
+                'published_at' => $request->published_at,
+                'user_id'=>Auth::user()->id
             ]
         );
         if ($request->tags) {
