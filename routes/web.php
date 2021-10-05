@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[WelcomeController::class,'index'])->name('welcome');
 
 Route::get('/blog/post/{post}',[BlogPostController::class,'show'])->name('blog.post');
+Route::get('/blog/category/{category}',[BlogPostController::class,'category'])->name('blog.category');
+Route::get('/blog/tag/{tag}',[BlogPostController::class,'tag'])->name('blog.tag');
 
 Auth::routes();
 

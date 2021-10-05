@@ -11,7 +11,10 @@ class Post extends Model
     use SoftDeletes;
     use HasFactory;
 
-    protected $fillable=[
+    protected $dates = [
+        'published_at'
+    ];
+    protected $fillable = [
         'title',
         'description',
         'content',
@@ -33,7 +36,7 @@ class Post extends Model
 
     public function hasTag($tagId)
     {
-        return in_array($tagId,$this->tags->pluck('id')->toArray());
+        return in_array($tagId, $this->tags->pluck('id')->toArray());
     }
 
     public function user()
@@ -41,4 +44,18 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function scopePublished($query)
+    {
+        return $query->where('published_at', '<=', now());
+    }
+    public function scopeSearched($query)
+    {
+        $search = request()->query('search');
+
+        if (!$search) {
+            return $query->published();
+        }
+
+        return $query->published()->where('title', 'LIKE', "%{$search}%");
+    }
 }
