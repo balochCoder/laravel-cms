@@ -2,19 +2,41 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-3">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+                <div class="card-header bg-info text-center">PUBLISHED POSTS</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                   <h1 class="text-center">{{$posts_count}}</h1>
+                </div>
+            </div>
+        </div>
 
-                    {{ __('You are logged in!') }}
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header bg-danger text-center">TRASHED POSTS</div>
+
+                <div class="card-body">
+                   <h1 class="text-center">{{$trashed_count}}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header bg-success text-center">USERS</div>
+
+                <div class="card-body">
+                   <h1 class="text-center">{{$users_count}}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header bg-info text-center">CATEGORIES</div>
+
+                <div class="card-body">
+                   <h1 class="text-center">{{$categories_count}}</h1>
                 </div>
             </div>
         </div>

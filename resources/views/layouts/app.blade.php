@@ -102,7 +102,9 @@
                     <div class="row">
                         <div class="col-md-3">
                             <ul class="list-group">
-
+                                <li class="list-group-item">
+                                    <a href="{{ route('home') }}">Dashboard</a>
+                                </li>
                                 @if (Auth::user()->isAdmin())
                                     <li class="list-group-item">
                                         <a href="{{ route('users') }}">Users</a>

@@ -74,8 +74,8 @@ class PostController extends Controller
                 'image' => $fileNameToStore,
                 'category_id' => $request->input('category_id'),
                 'published_at' => $request->published_at,
-                'user_id'=>Auth::user()->id,
-                'slug'=> Str::slug(Str::lower($request->input('title')),'-')
+                'user_id' => Auth::user()->id,
+                'slug' => Str::slug(Str::lower($request->input('title')), '-')
             ]
         );
         if ($request->tags) {
@@ -126,8 +126,8 @@ class PostController extends Controller
             'description' => $request->input('description'),
             'content' => $request->input('content'),
             'category_id' => $request->input('category_id'),
-            'published_at' => $request->input('published_at'),            
-            'slug'=> Str::slug(Str::lower($request->input('title')),'-')
+            'published_at' => $request->input('published_at'),
+            'slug' => Str::slug(Str::lower($request->input('title')), '-')
         ]);
 
         if ($request->hasFile('image')) {
