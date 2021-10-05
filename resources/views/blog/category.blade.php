@@ -38,12 +38,12 @@
                             @forelse ($posts as $post)
                                 <div class="col-md-6">
                                     <div class="card border hover-shadow-6 mb-6 d-block">
-                                        <a href="{{ route('blog.post', $post->id) }}"><img class="card-img-top"
+                                        <a href="{{ route('blog.post', $post->slug) }}"><img class="card-img-top"
                                                 src="{{ asset('storage/post_images/' . $post->image) }}"
                                                 alt="Card image cap"></a>
                                         <div class="p-6 text-center">
                                             <p><a class="small-5 text-lighter text-uppercase ls-2 fw-400"
-                                                    href="{{route('blog.category',$post->category_id)}}">{{ $post->category->name }}</a>
+                                                    href="{{route('blog.category',$post->category->slug)}}">{{ $post->category->name }}</a>
                                             </p>
                                             <h5 class="mb-0"><a class="text-dark"
                                                     href="{{ route('blog.post', $post->id) }}">{{ $post->title }}</a></h5>

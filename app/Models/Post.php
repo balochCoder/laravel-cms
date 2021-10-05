@@ -21,7 +21,8 @@ class Post extends Model
         'image',
         'published_at',
         'category_id',
-        'user_id'
+        'user_id',
+        'slug'
     ];
 
     public function category()

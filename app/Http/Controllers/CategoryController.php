@@ -6,6 +6,7 @@ use App\Http\Requests\Categories\StoreCategoryRequest;
 use App\Http\Requests\Categories\UpdateCategoryRequest;
 use App\Models\Category;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -40,7 +41,8 @@ class CategoryController extends Controller
     {
         
         Category::create([
-            'name' => $request->input('name')
+            'name' => $request->input('name'),
+            'slug'=>Str::slug(Str::lower($request->input('name')),'-')
         ]);
         Session::flash('success', 'Category created successfully');
         return redirect(route('category.index'));
@@ -68,7 +70,8 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update([
-            'name' => $request->input('name')
+            'name' => $request->input('name'),            
+            'slug'=>Str::slug(Str::lower($request->input('name')),'-')
         ]);
 
         Session::flash('success', 'Category updated successfully');

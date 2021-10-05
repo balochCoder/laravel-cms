@@ -6,7 +6,7 @@ use App\Http\Requests\Tags\StoreTagRequest;
 use App\Http\Requests\Tags\UpdateTagRequest;
 use App\Models\Tag;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Str;
 class TagController extends Controller
 {
    /**
@@ -41,7 +41,8 @@ class TagController extends Controller
     {
         
         Tag::create([
-            'name' => $request->input('name')
+            'name' => $request->input('name'),            
+            'slug'=>Str::slug(Str::lower($request->input('name')),'-')
         ]);
         Session::flash('success', 'Tag created successfully');
         return redirect(route('tag.index'));
@@ -69,7 +70,8 @@ class TagController extends Controller
     public function update(UpdateTagRequest $request, Tag $tag)
     {
         $tag->update([
-            'name' => $request->input('name')
+            'name' => $request->input('name'),            
+            'slug'=>Str::slug(Str::lower($request->input('name')),'-')
         ]);
 
         Session::flash('success', 'Tag updated successfully');

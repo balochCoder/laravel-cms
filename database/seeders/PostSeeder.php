@@ -36,28 +36,36 @@ class PostSeeder extends Seeder
             'remember_token' => Str::random(10)
         ]);
         $category1 = Category::create([
-            'name' => 'News'
+            'name' => 'News',
+            'slug'=>Str::slug(Str::lower('News'),'-')
         ]);
         $category2 = Category::create([
-            'name' => 'Updates'
+            'name' => 'Updates',
+            'slug'=>Str::slug(Str::lower('Updates'),'-')
         ]);
         $category3 = Category::create([
-            'name' => 'Design'
+            'name' => 'Design',
+            'slug'=>Str::slug(Str::lower('Design'),'-')
         ]);
         $category4 = Category::create([
-            'name' => 'Marketing'
+            'name' => 'Marketing',
+            'slug'=>Str::slug(Str::lower('Marketing'),'-')
         ]);
         $category5 = Category::create([
-            'name' => 'Partnership'
+            'name' => 'Partnership',
+            'slug'=>Str::slug(Str::lower('Partnership'),'-')
         ]);
         $category6 = Category::create([
-            'name' => 'Product'
+            'name' => 'Product',
+            'slug'=>Str::slug(Str::lower('Product'),'-')
         ]);
         $category7 = Category::create([
-            'name' => 'Hiring'
+            'name' => 'Hiring',
+            'slug'=>Str::slug(Str::lower('Hiring'),'-')
         ]);
         $category8 = Category::create([
-            'name' => 'Offers'
+            'name' => 'Offers',
+            'slug'=>Str::slug(Str::lower('Offers'),'-')
         ]);
 
         $post1 = Post::create([
@@ -66,7 +74,8 @@ class PostSeeder extends Seeder
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
             'category_id' => $category1->id,
             'image' => '1.jpg',
-            'user_id' => $author1->id
+            'user_id' => $author1->id,
+            'slug' => Str::slug(Str::lower('We relocated our office to a new designed garage'),'-')
         ]);
         $post2 = Post::create([
             'title' => 'Congratulate and thank to Maryam for joining our team',
@@ -74,7 +83,8 @@ class PostSeeder extends Seeder
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
             'category_id' => $category4->id,
             'image' => '2.jpg',
-            'user_id' => $author1->id
+            'user_id' => $author1->id,
+            'slug' => Str::slug(Str::lower('Congratulate and thank to Maryam for joining our team'),'-')
         ]);
         $post3 = Post::create([
             'title' => 'New published books to read by a product designer',
@@ -82,7 +92,8 @@ class PostSeeder extends Seeder
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
             'category_id' => $category2->id,
             'image' => '3.jpg',
-            'user_id' => $author2->id
+            'user_id' => $author2->id,
+            'slug' => Str::slug(Str::lower('New published books to read by a product designer'),'-')
         ]);
         $post4 = Post::create([
             'title' => 'Best practices for minimalist design with example',
@@ -90,7 +101,8 @@ class PostSeeder extends Seeder
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
             'category_id' => $category3->id,
             'image' => '4.jpg',
-            'user_id' => $author2->id
+            'user_id' => $author2->id,
+            'slug' => Str::slug(Str::lower('Best practices for minimalist design with example'),'-')
         ]);
         $post5 = Post::create([
             'title' => 'This is why it\'s time to ditch dress codes at work',
@@ -98,7 +110,8 @@ class PostSeeder extends Seeder
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
             'category_id' => $category6->id,
             'image' => '5.jpg',
-            'user_id' => 1
+            'user_id' => 1,            
+            'slug' => Str::slug(Str::lower('This is why it\'s time to ditch dress codes at work'),'-')
         ]);
         $post6 = Post::create([
             'title' => 'Top 5 brilliant content marketing strategies',
@@ -106,39 +119,50 @@ class PostSeeder extends Seeder
             'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
             'category_id' => $category8->id,
             'image' => '6.jpg',
-            'user_id' => 1
+            'user_id' => 1,
+            'slug' => Str::slug(Str::lower('Top 5 brilliant content marketing strategies'),'-')
         ]);
 
 
         $tag1 = Tag::create([
-            'name' => 'Record'
+            'name' => 'Record',
+            'slug'=>Str::slug(Str::lower('Record'),'-')
         ]);
         $tag2 = Tag::create([
-            'name' => 'Progress'
+            'name' => 'Progress',
+            'slug'=>Str::slug(Str::lower('Progress'),'-')
         ]);
         $tag3 = Tag::create([
-            'name' => 'Customers'
+            'name' => 'Customers',
+            'slug'=>Str::slug(Str::lower('Customers'),'-')
         ]);
         $tag4 = Tag::create([
-            'name' => 'Freebie'
+            'name' => 'Freebie',
+            'slug'=>Str::slug(Str::lower('Freebie'),'-')
         ]);
         $tag5 = Tag::create([
-            'name' => 'Offer'
+            'name' => 'Offer',
+            'slug'=>Str::slug(Str::lower('Offer'),'-')
         ]);
         $tag6 = Tag::create([
-            'name' => 'Screenshot'
+            'name' => 'Screenshot',
+            'slug'=>Str::slug(Str::lower('Screenshot'),'-')
         ]);
         $tag7 = Tag::create([
-            'name' => 'Milestone'
+            'name' => 'Milestone',
+            'slug'=>Str::slug(Str::lower('Milestone'),'-')
         ]);
         $tag8 = Tag::create([
-            'name' => 'Version'
+            'name' => 'Version',
+            'slug'=>Str::slug(Str::lower('Version'),'-')
         ]);
         $tag9 = Tag::create([
-            'name' => 'Design'
+            'name' => 'Design',
+            'slug'=>Str::slug(Str::lower('Design'),'-')
         ]);
         $tag10 = Tag::create([
-            'name' => 'Job'
+            'name' => 'Job',
+            'slug'=>Str::slug(Str::lower('Job'),'-')
         ]);
 
 

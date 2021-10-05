@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -73,7 +74,8 @@ class PostController extends Controller
                 'image' => $fileNameToStore,
                 'category_id' => $request->input('category_id'),
                 'published_at' => $request->published_at,
-                'user_id'=>Auth::user()->id
+                'user_id'=>Auth::user()->id,
+                'slug'=> Str::slug(Str::lower($request->input('title')),'-')
             ]
         );
         if ($request->tags) {
@@ -124,7 +126,8 @@ class PostController extends Controller
             'description' => $request->input('description'),
             'content' => $request->input('content'),
             'category_id' => $request->input('category_id'),
-            'published_at' => $request->input('published_at')
+            'published_at' => $request->input('published_at'),            
+            'slug'=> Str::slug(Str::lower($request->input('title')),'-')
         ]);
 
         if ($request->hasFile('image')) {
