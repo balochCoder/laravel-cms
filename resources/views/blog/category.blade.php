@@ -12,7 +12,7 @@
 
             <div class="row">
                 <div class="col-md-8 mx-auto">
-                    <h1>{{$category->name}}</h1>
+                    <h1>Category: {{$category->name}}</h1>
                 </div>
             </div>
 
